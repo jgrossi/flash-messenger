@@ -91,7 +91,7 @@ class FlashMessenger
         if (isset($config['defaultClassName'])) {
             $instance->_defaultClassName = $config['defaultClassName'];
         }
-        $instance->storeMessages();
+        $instance->_storeMessages();
     }
     
     /**
@@ -99,7 +99,7 @@ class FlashMessenger
      * @param integer $type
      * @return string 
      */
-    protected function getClassName($type)
+    protected function _getClassName($type)
     {
         $class = $this->_classesNames[$type];
         return $this->_defaultClassName . $class;
@@ -118,7 +118,7 @@ class FlashMessenger
     /**
      * Remove messages from SESSION and store locally 
      */
-    protected function storeMessages()
+    protected function _storeMessages()
     {
         if (isset($_SESSION['FlashMessenger'])) {
             $this->_messages = $_SESSION['FlashMessenger'];
@@ -146,7 +146,7 @@ class FlashMessenger
     public static function renderMessage($type = self::MESSAGE_NOTICE)
     {
         $instance = self::getInstance();
-        $className = $instance->getClassName($type);
+        $className = $instance->_getClassName($type);
         $message = self::getMessage($type);
         
         if (!empty($message)) {
